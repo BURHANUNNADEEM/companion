@@ -2,7 +2,7 @@
 backend/.venv/
 backend/.env
 backend/*.db
-__pycache__/
+_pycache_/
 .pytest_cache/
 # flutter
 mobile/.dart_tool/
