@@ -13,7 +13,7 @@ router = APIRouter(prefix="/api", tags=["me"])
 
 @router.get("/me")
 async def me(user: Annotated[User, Depends(get_current_user)]):
-    return {"id": user.id, "clerk_id": user.clerk_id}
+    return {"id": user.id, "firebase_uid": user.firebase_uid}
 
 
 @router.post("/events", status_code=201)

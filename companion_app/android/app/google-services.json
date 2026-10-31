@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "40905880445",
+    "project_id": "build4better-dddc7",
+    "storage_bucket": "build4better-dddc7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40905880445:android:0ce156447e9fa764055214",
+        "android_client_info": {
+          "package_name": "com.example.companion_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40905880445-kvltg9i7u4f5hh16mttqqhesagc5old9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0SXqPKfJ241DXaU6uyrswFsen8lxouhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40905880445-kvltg9i7u4f5hh16mttqqhesagc5old9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

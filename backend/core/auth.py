@@ -1,9 +1,9 @@
 from typing import Annotated
 
-from clerk_backend_api import AuthenticateRequestOptions, authenticate_request
-from clerk_backend_api.security.types import RequestState
-from fastapi import Depends, HTTPException, Request
-from fastapi.security import HTTPBearer
+import firebase_admin
+from fastapi import Depends, HTTPException
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from firebase_admin import auth as fb_auth
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -14,38 +14,34 @@ from models import User
 http_bearer = HTTPBearer(auto_error=False)  # gives Swagger an "Authorize" button
 
 
+def _init_firebase(project_id: str) -> None:
+    if not firebase_admin._apps:
+        # Verifying ID tokens only needs the project ID (no service account key).
+        firebase_admin.initialize_app(options={"projectId": project_id})
+
+
+# plain `def` -> FastAPI runs it in a threadpool, so the sync verify doesn't block the loop
 def require_auth(
-    request: Request,
+    creds: Annotated[HTTPAuthorizationCredentials | None, Depends(http_bearer)],
     settings: Annotated[Settings, Depends(get_settings)],
-    _creds: Annotated[object, Depends(http_bearer)] = None,
-) -> RequestState:
-    parties = [p.strip() for p in settings.clerk_authorized_parties.split(",") if p.strip()]
-    state = authenticate_request(
-        request,
-        AuthenticateRequestOptions(
-            secret_key=settings.clerk_secret_key,
-            jwt_key=settings.clerk_jwt_key or None,
-            authorized_parties=parties or None,
-            accepts_token=["session_token"],
-        ),
-    )
-    if not state.is_signed_in:
-        raise HTTPException(
-            status_code=401,
-            detail=state.reason.name if state.reason else "unauthorized",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    return state
+) -> dict:
+    if creds is None:
+        raise HTTPException(401, "missing token", headers={"WWW-Authenticate": "Bearer"})
+    _init_firebase(settings.firebase_project_id)
+    try:
+        return fb_auth.verify_id_token(creds.credentials)
+    except Exception:
+        raise HTTPException(401, "invalid or expired token", headers={"WWW-Authenticate": "Bearer"})
 
 
 async def get_current_user(
-    state: Annotated[RequestState, Depends(require_auth)],
+    claims: Annotated[dict, Depends(require_auth)],
     db: Annotated[AsyncSession, Depends(get_db)],
 ) -> User:
-    clerk_id = state.payload["sub"]
-    user = (await db.execute(select(User).where(User.clerk_id == clerk_id))).scalar_one_or_none()
+    uid = claims["uid"]  # same as claims["sub"]
+    user = (await db.execute(select(User).where(User.firebase_uid == uid))).scalar_one_or_none()
     if user is None:
-        user = User(clerk_id=clerk_id)
+        user = User(firebase_uid=uid)
         db.add(user)
         await db.commit()
         await db.refresh(user)
