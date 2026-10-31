@@ -44,18 +44,10 @@ class _LoginPageState extends State<LoginPage> {
         }
       });
 
+  
   Future<void> _google() => _run(() async {
-        if (!_gsiReady) {
-          await GoogleSignIn.instance.initialize();
-          _gsiReady = true;
-        }
-        final account = await GoogleSignIn.instance.authenticate();
-        final idToken = account.authentication.idToken;
-        if (idToken == null) throw Exception('Google did not return an ID token');
-        await FirebaseAuth.instance.signInWithCredential(
-          GoogleAuthProvider.credential(idToken: idToken),
-        );
-      });
+      await FirebaseAuth.instance.signInWithProvider(GoogleAuthProvider());
+    });
 
   @override
   Widget build(BuildContext context) {
