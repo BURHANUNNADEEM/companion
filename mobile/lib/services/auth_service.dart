@@ -9,7 +9,7 @@ import '../app_config.dart';
 /// Firebase Authentication (phone OTP or email) - PRD F5.
 /// In AUTH_MODE=dev (demo/testing without Firebase) a local demo id is used and sent as `dev:<uid>:<email>`.
 class AuthService extends ChangeNotifier {
-  AuthService({this.devMode = AppConfig.isDevAuth});
+  AuthService({bool? devMode}) : devMode = devMode ?? AppConfig.isDevAuth;
 
   final bool devMode;
   String? _devUid;
