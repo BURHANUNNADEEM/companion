@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">کمپینین</string>
+    <string name="tier2_service_label">کمپینین ٹچ مددگار</string>
+    <string name="tier2_service_description">کمپینین فون ڈائلر، واٹس ایپ اور وائی فائی سیٹنگ جیسی ایپس میں اگلے بٹن کی طرف اشارہ کر سکتا ہے، اور صرف آپ کے کہنے پر آپ کے لیے اسے دبا سکتا ہے۔ یہ کبھی بینک، ادائیگی یا پاس ورڈ والی اسکرینوں میں کام نہیں کرتا، کبھی "بھیجیں" نہیں دباتا، اور آپ کسی بھی وقت "روکیں" دبا سکتے ہیں۔ اسکرین پر جو کچھ آپ دیکھتے ہیں وہ نہ محفوظ ہوتا ہے نہ کہیں بھیجا جاتا ہے۔</string>
+    <string name="tier2_channel">کمپینین مددگار</string>
+    <string name="tier2_notification_title">کمپینین ٹچ مددگار آن ہے</string>
+    <string name="tier2_notification_text">یہ صرف آپ کے کہنے پر مدد کرتا ہے۔ اسے کسی بھی وقت ایکسیسبلٹی سیٹنگ میں بند کریں۔</string>
+    <string name="tier2_guiding">کمپینین دکھا رہا ہے کہ کہاں دبانا ہے</string>
+    <string name="tier2_assisting">کمپینین مدد کر رہا ہے</string>
+    <string name="tier2_stop">روکیں</string>
+</resources>

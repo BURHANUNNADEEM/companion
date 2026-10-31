@@ -1,0 +1,20 @@
+<!--
+  "demo" flavour = sideloaded hackathon build with F10 Tier 2 (Accessibility Service).
+  The "play" flavour does NOT include this service (Google Play bans autonomous accessibility use - PRD F10).
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <service
+            android:name="com.companion.app.tier2.CompanionAccessibilityService"
+            android:exported="false"
+            android:label="@string/tier2_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+    </application>
+</manifest>

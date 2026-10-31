@@ -1,0 +1,16 @@
+# backend
+backend/.venv/
+backend/.env
+backend/*.db
+__pycache__/
+.pytest_cache/
+# flutter
+mobile/.dart_tool/
+mobile/build/
+mobile/.flutter-plugins*
+mobile/android/local.properties
+mobile/android/.gradle/
+mobile/android/app/google-services.json
+mobile/android/key.properties
+*.iml
+.idea/

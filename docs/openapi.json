@@ -1,0 +1,1529 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "Companion API",
+  "description": "Backend for the Companion Android app (bilingual Urdu/English). See docs/API.md.",
+  "version": "0.3.0"
+ },
+ "paths": {
+  "/api/me": {
+   "get": {
+    "tags": [
+     "me"
+    ],
+    "summary": "Get Me",
+    "operationId": "get_me_api_me_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/me/role": {
+   "put": {
+    "tags": [
+     "me"
+    ],
+    "summary": "Set Role",
+    "operationId": "set_role_api_me_role_put",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RoleIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/me/language": {
+   "put": {
+    "tags": [
+     "me"
+    ],
+    "summary": "Set Language",
+    "operationId": "set_language_api_me_language_put",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/LanguageIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/me/profile": {
+   "put": {
+    "tags": [
+     "me"
+    ],
+    "summary": "Set Profile",
+    "operationId": "set_profile_api_me_profile_put",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ProfileIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/me/sharing-preview": {
+   "get": {
+    "tags": [
+     "me"
+    ],
+    "summary": "Sharing Preview",
+    "description": "The parent sees exactly what a linked caregiver would see (PRD §12 mitigation).",
+    "operationId": "sharing_preview_api_me_sharing_preview_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/me/data": {
+   "delete": {
+    "tags": [
+     "me"
+    ],
+    "summary": "Delete My Data",
+    "description": "Remove events, consents, scam history, links, alerts, guide cards and the account itself.",
+    "operationId": "delete_my_data_api_me_data_delete",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/consent": {
+   "get": {
+    "tags": [
+     "consent"
+    ],
+    "summary": "Get Consent",
+    "operationId": "get_consent_api_consent_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "put": {
+    "tags": [
+     "consent"
+    ],
+    "summary": "Put Consent",
+    "operationId": "put_consent_api_consent_put",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ConsentIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/events": {
+   "post": {
+    "tags": [
+     "events"
+    ],
+    "summary": "Post Events",
+    "operationId": "post_events_api_events_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/EventBatch"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/config": {
+   "get": {
+    "tags": [
+     "config"
+    ],
+    "summary": "Get Config",
+    "operationId": "get_config_api_config_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/suggestions": {
+   "get": {
+    "tags": [
+     "suggestions"
+    ],
+    "summary": "Get Suggestions",
+    "operationId": "get_suggestions_api_suggestions_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "hour",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer",
+         "maximum": 23,
+         "minimum": 0
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Hour"
+      }
+     },
+     {
+      "name": "last_task",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "maxLength": 32
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Last Task"
+      }
+     },
+     {
+      "name": "k",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "maximum": 3,
+       "minimum": 1,
+       "default": 3,
+       "title": "K"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/voice/intent": {
+   "post": {
+    "tags": [
+     "voice"
+    ],
+    "summary": "Voice Intent",
+    "operationId": "voice_intent_api_voice_intent_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/VoiceIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/navigation/workflows": {
+   "get": {
+    "tags": [
+     "navigation"
+    ],
+    "summary": "List Workflows",
+    "operationId": "list_workflows_api_navigation_workflows_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/navigation/plan": {
+   "post": {
+    "tags": [
+     "navigation"
+    ],
+    "summary": "Navigation Plan",
+    "description": "LLM/rules understand -> Flow Engine validates -> safe ordered steps with targets, arrows, hints.",
+    "operationId": "navigation_plan_api_navigation_plan_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PlanIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/scam/check": {
+   "post": {
+    "tags": [
+     "scam"
+    ],
+    "summary": "Scam Check",
+    "operationId": "scam_check_api_scam_check_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ScamIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/scam/share/{check_id}": {
+   "post": {
+    "tags": [
+     "scam"
+    ],
+    "summary": "Share With Family",
+    "description": "'Tell my family' - sends the verdict (never the message) to linked caregivers.",
+    "operationId": "share_with_family_api_scam_share__check_id__post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "check_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Check Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/scam/history": {
+   "get": {
+    "tags": [
+     "scam"
+    ],
+    "summary": "History",
+    "operationId": "history_api_scam_history_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/caregiver/invite": {
+   "post": {
+    "tags": [
+     "caregiver"
+    ],
+    "summary": "Invite",
+    "operationId": "invite_api_caregiver_invite_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/InviteIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/caregiver/accept": {
+   "post": {
+    "tags": [
+     "caregiver"
+    ],
+    "summary": "Accept",
+    "operationId": "accept_api_caregiver_accept_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AcceptIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/caregiver/approve/{link_id}": {
+   "post": {
+    "tags": [
+     "caregiver"
+    ],
+    "summary": "Approve",
+    "operationId": "approve_api_caregiver_approve__link_id__post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "link_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Link Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/caregiver/link/{link_id}": {
+   "delete": {
+    "tags": [
+     "caregiver"
+    ],
+    "summary": "Revoke",
+    "operationId": "revoke_api_caregiver_link__link_id__delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "link_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Link Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/caregiver/links": {
+   "get": {
+    "tags": [
+     "caregiver"
+    ],
+    "summary": "Links",
+    "operationId": "links_api_caregiver_links_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/caregiver/summary": {
+   "get": {
+    "tags": [
+     "caregiver"
+    ],
+    "summary": "Summary",
+    "description": "Aggregated stats for linked parents. With sharing off, the caregiver sees nothing.",
+    "operationId": "summary_api_caregiver_summary_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/caregiver/alerts": {
+   "get": {
+    "tags": [
+     "caregiver"
+    ],
+    "summary": "Alerts",
+    "operationId": "alerts_api_caregiver_alerts_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/caregiver/alerts/{alert_id}/seen": {
+   "post": {
+    "tags": [
+     "caregiver"
+    ],
+    "summary": "Alert Seen",
+    "operationId": "alert_seen_api_caregiver_alerts__alert_id__seen_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "alert_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Alert Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/caregiver/guide-cards": {
+   "post": {
+    "tags": [
+     "caregiver"
+    ],
+    "summary": "Send Guide Card",
+    "operationId": "send_guide_card_api_caregiver_guide_cards_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/GuideCardIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/guide-cards": {
+   "get": {
+    "tags": [
+     "caregiver"
+    ],
+    "summary": "My Guide Cards",
+    "operationId": "my_guide_cards_api_guide_cards_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/guide-cards/{card_id}/seen": {
+   "post": {
+    "tags": [
+     "caregiver"
+    ],
+    "summary": "Guide Card Seen",
+    "operationId": "guide_card_seen_api_guide_cards__card_id__seen_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "card_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Card Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/alerts/inactivity/run": {
+   "post": {
+    "tags": [
+     "caregiver",
+     "admin"
+    ],
+    "summary": "Inactivity Job",
+    "description": "Call from a scheduler (e.g. cron / GitHub Actions) once a day.",
+    "operationId": "inactivity_job_api_alerts_inactivity_run_post",
+    "parameters": [
+     {
+      "name": "x-admin-token",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "X-Admin-Token"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/health": {
+   "get": {
+    "tags": [
+     "health"
+    ],
+    "summary": "Health",
+    "operationId": "health_health_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "AcceptIn": {
+    "properties": {
+     "code": {
+      "type": "string",
+      "maxLength": 16,
+      "minLength": 6,
+      "title": "Code"
+     }
+    },
+    "type": "object",
+    "required": [
+     "code"
+    ],
+    "title": "AcceptIn"
+   },
+   "ConsentIn": {
+    "properties": {
+     "activity_tracking": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Activity Tracking"
+     },
+     "caregiver_sharing": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Caregiver Sharing"
+     },
+     "scam_text_storage": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Scam Text Storage"
+     },
+     "ai_disclosure": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Ai Disclosure"
+     }
+    },
+    "type": "object",
+    "title": "ConsentIn"
+   },
+   "EventBatch": {
+    "properties": {
+     "session_id": {
+      "type": "string",
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Session Id"
+     },
+     "events": {
+      "items": {
+       "$ref": "#/components/schemas/EventIn"
+      },
+      "type": "array",
+      "maxItems": 200,
+      "title": "Events"
+     }
+    },
+    "type": "object",
+    "required": [
+     "session_id",
+     "events"
+    ],
+    "title": "EventBatch"
+   },
+   "EventIn": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "title": "Type"
+     },
+     "item_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Item Id"
+     },
+     "ts": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date-time"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Ts"
+     },
+     "properties": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Properties"
+     }
+    },
+    "type": "object",
+    "required": [
+     "type"
+    ],
+    "title": "EventIn"
+   },
+   "GuideCardIn": {
+    "properties": {
+     "parent_id": {
+      "type": "string",
+      "maxLength": 32,
+      "title": "Parent Id"
+     },
+     "text": {
+      "type": "string",
+      "maxLength": 280,
+      "minLength": 1,
+      "title": "Text"
+     },
+     "workflow_id": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 64
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Workflow Id"
+     }
+    },
+    "type": "object",
+    "required": [
+     "parent_id",
+     "text"
+    ],
+    "title": "GuideCardIn"
+   },
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "type": "array",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "title": "HTTPValidationError"
+   },
+   "InviteIn": {
+    "properties": {
+     "email": {
+      "type": "string",
+      "maxLength": 320,
+      "title": "Email"
+     },
+     "permissions": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Permissions"
+     }
+    },
+    "type": "object",
+    "required": [
+     "email"
+    ],
+    "title": "InviteIn"
+   },
+   "LanguageIn": {
+    "properties": {
+     "language": {
+      "type": "string",
+      "enum": [
+       "ur",
+       "en"
+      ],
+      "title": "Language"
+     }
+    },
+    "type": "object",
+    "required": [
+     "language"
+    ],
+    "title": "LanguageIn"
+   },
+   "PlanIn": {
+    "properties": {
+     "utterance": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 500
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Utterance"
+     },
+     "workflow_id": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 64
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Workflow Id"
+     },
+     "task": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 32
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Task"
+     },
+     "slots": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Slots"
+     }
+    },
+    "type": "object",
+    "title": "PlanIn"
+   },
+   "ProfileIn": {
+    "properties": {
+     "display_name": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 60
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Display Name"
+     }
+    },
+    "type": "object",
+    "title": "ProfileIn"
+   },
+   "RoleIn": {
+    "properties": {
+     "role": {
+      "type": "string",
+      "enum": [
+       "parent",
+       "caregiver"
+      ],
+      "title": "Role"
+     }
+    },
+    "type": "object",
+    "required": [
+     "role"
+    ],
+    "title": "RoleIn"
+   },
+   "ScamIn": {
+    "properties": {
+     "text": {
+      "type": "string",
+      "maxLength": 5000,
+      "minLength": 1,
+      "title": "Text"
+     },
+     "source": {
+      "type": "string",
+      "enum": [
+       "paste",
+       "share",
+       "screenshot"
+      ],
+      "title": "Source",
+      "default": "paste"
+     }
+    },
+    "type": "object",
+    "required": [
+     "text"
+    ],
+    "title": "ScamIn"
+   },
+   "ValidationError": {
+    "properties": {
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "type": "array",
+      "title": "Location"
+     },
+     "msg": {
+      "type": "string",
+      "title": "Message"
+     },
+     "type": {
+      "type": "string",
+      "title": "Error Type"
+     },
+     "input": {
+      "title": "Input"
+     },
+     "ctx": {
+      "type": "object",
+      "title": "Context"
+     }
+    },
+    "type": "object",
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError"
+   },
+   "VoiceIn": {
+    "properties": {
+     "transcript": {
+      "type": "string",
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Transcript"
+     },
+     "locale": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 10
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Locale"
+     }
+    },
+    "type": "object",
+    "required": [
+     "transcript"
+    ],
+    "title": "VoiceIn"
+   }
+  },
+  "securitySchemes": {
+   "HTTPBearer": {
+    "type": "http",
+    "scheme": "bearer"
+   }
+  }
+ }
+}

@@ -1,0 +1,296 @@
+{
+  "version": 1,
+  "limits": {"max_steps": 10, "timeout_seconds": 30},
+  "allowed_intents": [
+    "dial", "sms", "gallery", "camera", "whatsapp_chat", "whatsapp_open",
+    "settings_wifi", "settings_bluetooth", "settings_sound", "settings_display",
+    "maps_search"
+  ],
+  "allowed_in_app_routes": ["home", "scam_check", "family"],
+  "workflows": [
+    {
+      "id": "call_contact",
+      "task": "call",
+      "title": {"en": "Call someone", "ur": "کسی کو کال کریں"},
+      "intro": {"en": "Let's call {contact}. I'll show you each step.", "ur": "آئیں {contact} کو کال کرتے ہیں۔ میں ہر قدم دکھاؤں گا۔"},
+      "intro_default": {"en": "Let's make a call. I'll show you each step.", "ur": "آئیں کال کرتے ہیں۔ میں ہر قدم دکھاؤں گا۔"},
+      "slots": {"contact": {"type": "contact", "required": false, "max_len": 40}},
+      "tier2_skill": "call_contact",
+      "steps": [
+        {"id": "tap_tile", "screen": "companion_home", "target": {"id": "tile_call", "label": {"en": "Call", "ur": "کال کریں"}},
+         "highlight": {"x": 0.04, "y": 0.20, "w": 0.44, "h": 0.20}, "arrow": "down",
+         "hint": {"en": "Tap the green Call button.", "ur": "سبز 'کال کریں' بٹن دبائیں۔"},
+         "action": {"kind": "open_intent", "intent": "dial", "params": ["contact"]},
+         "completion": {"type": "intent_launched"}},
+        {"id": "press_call", "screen": "dialer", "target": {"id": "dialer_call_button", "label": {"en": "Call", "ur": "کال"}},
+         "highlight": {"x": 0.38, "y": 0.82, "w": 0.24, "h": 0.10}, "arrow": "down",
+         "hint": {"en": "The number is ready. Press the green phone button to call {contact}.", "ur": "نمبر تیار ہے۔ {contact} کو کال کرنے کے لیے سبز فون بٹن دبائیں۔"},
+         "hint_default": {"en": "Type the number or pick a name, then press the green phone button.", "ur": "نمبر لکھیں یا نام چنیں، پھر سبز فون بٹن دبائیں۔"},
+         "action": {"kind": "external_hint"},
+         "completion": {"type": "returned_to_app"}}
+      ]
+    },
+    {
+      "id": "open_messages",
+      "task": "messages",
+      "title": {"en": "Read or send a message", "ur": "پیغام پڑھیں یا بھیجیں"},
+      "intro_default": {"en": "Let's open your messages.", "ur": "آئیں آپ کے پیغامات کھولتے ہیں۔"},
+      "slots": {"contact": {"type": "contact", "required": false, "max_len": 40}},
+      "steps": [
+        {"id": "tap_tile", "screen": "companion_home", "target": {"id": "tile_messages", "label": {"en": "Messages", "ur": "پیغامات"}},
+         "highlight": {"x": 0.52, "y": 0.20, "w": 0.44, "h": 0.20}, "arrow": "down",
+         "hint": {"en": "Tap the Messages button.", "ur": "'پیغامات' بٹن دبائیں۔"},
+         "action": {"kind": "open_intent", "intent": "sms", "params": ["contact"]},
+         "completion": {"type": "intent_launched"}},
+        {"id": "pick_chat", "screen": "messages_app", "target": {"id": "conversation_list", "label": {"en": "Name", "ur": "نام"}},
+         "highlight": {"x": 0.04, "y": 0.18, "w": 0.92, "h": 0.12}, "arrow": "left",
+         "hint": {"en": "Tap a person's name to read. Type at the bottom and press the arrow to send.", "ur": "پڑھنے کے لیے کسی کے نام پر دبائیں۔ نیچے لکھیں اور بھیجنے کے لیے تیر دبائیں۔"},
+         "action": {"kind": "external_hint"},
+         "completion": {"type": "returned_to_app"}}
+      ]
+    },
+    {
+      "id": "open_photos",
+      "task": "photos",
+      "title": {"en": "See your photos", "ur": "اپنی تصویریں دیکھیں"},
+      "intro_default": {"en": "Let's look at your photos.", "ur": "آئیں آپ کی تصویریں دیکھتے ہیں۔"},
+      "slots": {},
+      "steps": [
+        {"id": "tap_tile", "screen": "companion_home", "target": {"id": "tile_photos", "label": {"en": "Photos", "ur": "تصویریں"}},
+         "highlight": {"x": 0.04, "y": 0.42, "w": 0.44, "h": 0.20}, "arrow": "down",
+         "hint": {"en": "Tap the Photos button.", "ur": "'تصویریں' بٹن دبائیں۔"},
+         "action": {"kind": "open_intent", "intent": "gallery"},
+         "completion": {"type": "intent_launched"}},
+        {"id": "browse", "screen": "gallery", "target": {"id": "photo_grid", "label": {"en": "Photo", "ur": "تصویر"}},
+         "highlight": {"x": 0.04, "y": 0.20, "w": 0.44, "h": 0.22}, "arrow": "up",
+         "hint": {"en": "Tap a photo to make it big. Swipe left or right to see more.", "ur": "تصویر بڑی کرنے کے لیے اس پر دبائیں۔ مزید دیکھنے کے لیے دائیں یا بائیں سرکائیں۔"},
+         "action": {"kind": "external_hint"},
+         "completion": {"type": "returned_to_app"}}
+      ]
+    },
+    {
+      "id": "whatsapp_video_call",
+      "task": "whatsapp",
+      "title": {"en": "WhatsApp video call", "ur": "واٹس ایپ ویڈیو کال"},
+      "intro": {"en": "Let's video call {contact} on WhatsApp.", "ur": "آئیں واٹس ایپ پر {contact} کو ویڈیو کال کرتے ہیں۔"},
+      "intro_default": {"en": "Let's make a WhatsApp video call.", "ur": "آئیں واٹس ایپ ویڈیو کال کرتے ہیں۔"},
+      "slots": {"contact": {"type": "contact", "required": false, "max_len": 40}},
+      "steps": [
+        {"id": "tap_tile", "screen": "companion_home", "target": {"id": "tile_whatsapp", "label": {"en": "WhatsApp video call", "ur": "واٹس ایپ ویڈیو کال"}},
+         "highlight": {"x": 0.52, "y": 0.42, "w": 0.44, "h": 0.20}, "arrow": "down",
+         "hint": {"en": "Tap the WhatsApp button.", "ur": "'واٹس ایپ' بٹن دبائیں۔"},
+         "action": {"kind": "open_intent", "intent": "whatsapp_chat", "params": ["contact"]},
+         "completion": {"type": "intent_launched"}},
+        {"id": "tap_video", "screen": "whatsapp_chat", "target": {"id": "video_call_icon", "label": {"en": "Video camera icon", "ur": "ویڈیو کیمرے کا نشان"}},
+         "highlight": {"x": 0.70, "y": 0.03, "w": 0.13, "h": 0.07}, "arrow": "up",
+         "hint": {"en": "At the top, tap the small video camera picture.", "ur": "اوپر چھوٹے ویڈیو کیمرے والے نشان پر دبائیں۔"},
+         "action": {"kind": "external_hint"},
+         "completion": {"type": "returned_to_app"}}
+      ]
+    },
+    {
+      "id": "whatsapp_chat",
+      "task": "whatsapp_chat",
+      "title": {"en": "Send a WhatsApp message", "ur": "واٹس ایپ پیغام بھیجیں"},
+      "intro": {"en": "Let's write to {contact} on WhatsApp. You will press Send yourself.", "ur": "آئیں واٹس ایپ پر {contact} کو لکھتے ہیں۔ بھیجنے کا بٹن آپ خود دبائیں گے۔"},
+      "intro_default": {"en": "Let's send a WhatsApp message. You will press Send yourself.", "ur": "آئیں واٹس ایپ پیغام بھیجتے ہیں۔ بھیجنے کا بٹن آپ خود دبائیں گے۔"},
+      "slots": {"contact": {"type": "contact", "required": false, "max_len": 40}},
+      "tier2_skill": "whatsapp_chat",
+      "steps": [
+        {"id": "open_chat", "screen": "companion_home", "target": {"id": "tile_whatsapp", "label": {"en": "WhatsApp", "ur": "واٹس ایپ"}},
+         "highlight": {"x": 0.52, "y": 0.42, "w": 0.44, "h": 0.20}, "arrow": "down",
+         "hint": {"en": "Tap the WhatsApp button to open the chat.", "ur": "چیٹ کھولنے کے لیے 'واٹس ایپ' بٹن دبائیں۔"},
+         "action": {"kind": "open_intent", "intent": "whatsapp_chat", "params": ["contact"]},
+         "completion": {"type": "intent_launched"}},
+        {"id": "type", "screen": "whatsapp_chat", "target": {"id": "message_box", "label": {"en": "Message box", "ur": "پیغام کا خانہ"}},
+         "highlight": {"x": 0.04, "y": 0.90, "w": 0.74, "h": 0.07}, "arrow": "down",
+         "hint": {"en": "Tap the box at the bottom and type your message (or press the microphone).", "ur": "نیچے والے خانے پر دبائیں اور اپنا پیغام لکھیں (یا مائیک دبائیں)۔"},
+         "action": {"kind": "external_hint"},
+         "completion": {"type": "user_confirm"}},
+        {"id": "send", "screen": "whatsapp_chat", "target": {"id": "send_button", "label": {"en": "Send", "ur": "بھیجیں"}},
+         "highlight": {"x": 0.82, "y": 0.90, "w": 0.14, "h": 0.07}, "arrow": "right",
+         "hint": {"en": "Press the green arrow to send. Companion never presses Send for you.", "ur": "بھیجنے کے لیے سبز تیر دبائیں۔ کمپینین آپ کی جگہ کبھی 'بھیجیں' نہیں دباتا۔"},
+         "action": {"kind": "external_hint"},
+         "completion": {"type": "returned_to_app"}}
+      ]
+    },
+    {
+      "id": "open_camera",
+      "task": "camera",
+      "title": {"en": "Take a photo", "ur": "تصویر کھینچیں"},
+      "intro_default": {"en": "Let's take a photo.", "ur": "آئیں تصویر کھینچتے ہیں۔"},
+      "slots": {},
+      "steps": [
+        {"id": "open", "screen": "companion_guide", "target": {"id": "go_button", "label": {"en": "Go", "ur": "چلیں"}},
+         "highlight": {"x": 0.10, "y": 0.78, "w": 0.80, "h": 0.10}, "arrow": "down",
+         "hint": {"en": "Press Go to open the camera.", "ur": "کیمرا کھولنے کے لیے 'چلیں' دبائیں۔"},
+         "action": {"kind": "open_intent", "intent": "camera"},
+         "completion": {"type": "intent_launched"}},
+        {"id": "shoot", "screen": "camera", "target": {"id": "shutter", "label": {"en": "Big round button", "ur": "بڑا گول بٹن"}},
+         "highlight": {"x": 0.40, "y": 0.84, "w": 0.20, "h": 0.10}, "arrow": "down",
+         "hint": {"en": "Hold the phone still and press the big round button.", "ur": "فون کو سیدھا پکڑیں اور بڑا گول بٹن دبائیں۔"},
+         "action": {"kind": "external_hint"},
+         "completion": {"type": "returned_to_app"}}
+      ]
+    },
+    {
+      "id": "share_photo",
+      "task": "share_photo",
+      "title": {"en": "Send a photo", "ur": "تصویر بھیجیں"},
+      "intro_default": {"en": "Let's send a photo to someone.", "ur": "آئیں کسی کو تصویر بھیجتے ہیں۔"},
+      "slots": {"contact": {"type": "contact", "required": false, "max_len": 40}},
+      "steps": [
+        {"id": "open_gallery", "screen": "companion_guide", "target": {"id": "go_button", "label": {"en": "Go", "ur": "چلیں"}},
+         "highlight": {"x": 0.10, "y": 0.78, "w": 0.80, "h": 0.10}, "arrow": "down",
+         "hint": {"en": "Press Go to open your photos.", "ur": "تصویریں کھولنے کے لیے 'چلیں' دبائیں۔"},
+         "action": {"kind": "open_intent", "intent": "gallery"},
+         "completion": {"type": "intent_launched"}},
+        {"id": "pick", "screen": "gallery", "target": {"id": "photo_grid", "label": {"en": "Photo", "ur": "تصویر"}},
+         "highlight": {"x": 0.04, "y": 0.20, "w": 0.44, "h": 0.22}, "arrow": "up",
+         "hint": {"en": "Tap the photo you want to send.", "ur": "جو تصویر بھیجنی ہے اس پر دبائیں۔"},
+         "action": {"kind": "external_hint"},
+         "completion": {"type": "user_confirm"}},
+        {"id": "share", "screen": "gallery_photo", "target": {"id": "share_icon", "label": {"en": "Share", "ur": "شیئر"}},
+         "highlight": {"x": 0.04, "y": 0.88, "w": 0.18, "h": 0.08}, "arrow": "down",
+         "hint": {"en": "Tap Share (three dots joined by lines), choose WhatsApp, then the person's name.", "ur": "'شیئر' (لائنوں سے جڑے تین نقطے) دبائیں، واٹس ایپ چنیں، پھر اس شخص کا نام۔"},
+         "action": {"kind": "external_hint"},
+         "completion": {"type": "returned_to_app"}}
+      ]
+    },
+    {
+      "id": "wifi_on",
+      "task": "wifi",
+      "title": {"en": "Turn on Wi-Fi", "ur": "وائی فائی آن کریں"},
+      "intro_default": {"en": "Let's turn on Wi-Fi.", "ur": "آئیں وائی فائی آن کرتے ہیں۔"},
+      "slots": {},
+      "tier2_skill": "wifi_on",
+      "steps": [
+        {"id": "open", "screen": "companion_guide", "target": {"id": "go_button", "label": {"en": "Go", "ur": "چلیں"}},
+         "highlight": {"x": 0.10, "y": 0.78, "w": 0.80, "h": 0.10}, "arrow": "down",
+         "hint": {"en": "Press Go to open the Wi-Fi settings.", "ur": "وائی فائی کی سیٹنگ کھولنے کے لیے 'چلیں' دبائیں۔"},
+         "action": {"kind": "open_intent", "intent": "settings_wifi"},
+         "completion": {"type": "intent_launched"}},
+        {"id": "toggle", "screen": "settings_wifi", "target": {"id": "wifi_switch", "label": {"en": "Wi-Fi switch", "ur": "وائی فائی کا سوئچ"}},
+         "highlight": {"x": 0.76, "y": 0.13, "w": 0.20, "h": 0.07}, "arrow": "right",
+         "hint": {"en": "Tap the switch next to Wi-Fi so it turns on (blue). Then tap your home network name.", "ur": "وائی فائی کے ساتھ والے سوئچ کو دبائیں تاکہ وہ آن (نیلا) ہو جائے۔ پھر اپنے گھر کے نیٹ ورک کا نام دبائیں۔"},
+         "action": {"kind": "external_hint"},
+         "completion": {"type": "returned_to_app"}}
+      ]
+    },
+    {
+      "id": "bluetooth_on",
+      "task": "bluetooth",
+      "title": {"en": "Turn on Bluetooth", "ur": "بلوٹوتھ آن کریں"},
+      "intro_default": {"en": "Let's turn on Bluetooth.", "ur": "آئیں بلوٹوتھ آن کرتے ہیں۔"},
+      "slots": {},
+      "steps": [
+        {"id": "open", "screen": "companion_guide", "target": {"id": "go_button", "label": {"en": "Go", "ur": "چلیں"}},
+         "highlight": {"x": 0.10, "y": 0.78, "w": 0.80, "h": 0.10}, "arrow": "down",
+         "hint": {"en": "Press Go to open the Bluetooth settings.", "ur": "بلوٹوتھ کی سیٹنگ کھولنے کے لیے 'چلیں' دبائیں۔"},
+         "action": {"kind": "open_intent", "intent": "settings_bluetooth"},
+         "completion": {"type": "intent_launched"}},
+        {"id": "toggle", "screen": "settings_bluetooth", "target": {"id": "bt_switch", "label": {"en": "Bluetooth switch", "ur": "بلوٹوتھ کا سوئچ"}},
+         "highlight": {"x": 0.76, "y": 0.13, "w": 0.20, "h": 0.07}, "arrow": "right",
+         "hint": {"en": "Tap the switch next to Bluetooth so it turns on.", "ur": "بلوٹوتھ کے ساتھ والے سوئچ کو دبائیں تاکہ وہ آن ہو جائے۔"},
+         "action": {"kind": "external_hint"},
+         "completion": {"type": "returned_to_app"}}
+      ]
+    },
+    {
+      "id": "sound_settings",
+      "task": "sound",
+      "title": {"en": "Change the volume", "ur": "آواز کم یا زیادہ کریں"},
+      "intro_default": {"en": "Let's change the volume.", "ur": "آئیں آواز ٹھیک کرتے ہیں۔"},
+      "slots": {},
+      "steps": [
+        {"id": "open", "screen": "companion_guide", "target": {"id": "go_button", "label": {"en": "Go", "ur": "چلیں"}},
+         "highlight": {"x": 0.10, "y": 0.78, "w": 0.80, "h": 0.10}, "arrow": "down",
+         "hint": {"en": "Press Go to open the sound settings.", "ur": "آواز کی سیٹنگ کھولنے کے لیے 'چلیں' دبائیں۔"},
+         "action": {"kind": "open_intent", "intent": "settings_sound"},
+         "completion": {"type": "intent_launched"}},
+        {"id": "slide", "screen": "settings_sound", "target": {"id": "volume_slider", "label": {"en": "Volume bar", "ur": "آواز کی پٹی"}},
+         "highlight": {"x": 0.08, "y": 0.22, "w": 0.84, "h": 0.07}, "arrow": "right",
+         "hint": {"en": "Slide the bar to the right for louder, to the left for quieter.", "ur": "آواز بڑھانے کے لیے پٹی کو دائیں، کم کرنے کے لیے بائیں سرکائیں۔"},
+         "action": {"kind": "external_hint"},
+         "completion": {"type": "returned_to_app"}}
+      ]
+    },
+    {
+      "id": "display_settings",
+      "task": "display",
+      "title": {"en": "Make the screen brighter", "ur": "اسکرین روشن کریں"},
+      "intro_default": {"en": "Let's change the screen brightness.", "ur": "آئیں اسکرین کی روشنی ٹھیک کرتے ہیں۔"},
+      "slots": {},
+      "steps": [
+        {"id": "open", "screen": "companion_guide", "target": {"id": "go_button", "label": {"en": "Go", "ur": "چلیں"}},
+         "highlight": {"x": 0.10, "y": 0.78, "w": 0.80, "h": 0.10}, "arrow": "down",
+         "hint": {"en": "Press Go to open the display settings.", "ur": "اسکرین کی سیٹنگ کھولنے کے لیے 'چلیں' دبائیں۔"},
+         "action": {"kind": "open_intent", "intent": "settings_display"},
+         "completion": {"type": "intent_launched"}},
+        {"id": "slide", "screen": "settings_display", "target": {"id": "brightness_slider", "label": {"en": "Brightness bar", "ur": "روشنی کی پٹی"}},
+         "highlight": {"x": 0.08, "y": 0.20, "w": 0.84, "h": 0.07}, "arrow": "right",
+         "hint": {"en": "Slide the brightness bar to the right to make the screen brighter.", "ur": "اسکرین روشن کرنے کے لیے روشنی کی پٹی کو دائیں سرکائیں۔"},
+         "action": {"kind": "external_hint"},
+         "completion": {"type": "returned_to_app"}}
+      ]
+    },
+    {
+      "id": "open_maps",
+      "task": "maps",
+      "title": {"en": "Get directions", "ur": "راستہ معلوم کریں"},
+      "intro": {"en": "Let's find the way to {destination}.", "ur": "آئیں {destination} کا راستہ ڈھونڈتے ہیں۔"},
+      "intro_default": {"en": "Let's open the map.", "ur": "آئیں نقشہ کھولتے ہیں۔"},
+      "slots": {"destination": {"type": "place", "required": false, "max_len": 80}},
+      "steps": [
+        {"id": "open", "screen": "companion_guide", "target": {"id": "go_button", "label": {"en": "Go", "ur": "چلیں"}},
+         "highlight": {"x": 0.10, "y": 0.78, "w": 0.80, "h": 0.10}, "arrow": "down",
+         "hint": {"en": "Press Go to open the map.", "ur": "نقشہ کھولنے کے لیے 'چلیں' دبائیں۔"},
+         "action": {"kind": "open_intent", "intent": "maps_search", "params": ["destination"]},
+         "completion": {"type": "intent_launched"}},
+        {"id": "directions", "screen": "maps", "target": {"id": "directions_button", "label": {"en": "Directions", "ur": "راستہ"}},
+         "highlight": {"x": 0.04, "y": 0.80, "w": 0.40, "h": 0.08}, "arrow": "down",
+         "hint": {"en": "Press the blue Directions button, then Start.", "ur": "نیلا 'راستہ' (Directions) بٹن دبائیں، پھر 'شروع' (Start)۔"},
+         "action": {"kind": "external_hint"},
+         "completion": {"type": "returned_to_app"}}
+      ]
+    },
+    {
+      "id": "scam_check",
+      "task": "scam_check",
+      "title": {"en": "Check a message", "ur": "پیغام چیک کریں"},
+      "intro_default": {"en": "Let's check if a message is safe.", "ur": "آئیں دیکھتے ہیں کہ پیغام محفوظ ہے یا نہیں۔"},
+      "slots": {},
+      "steps": [
+        {"id": "tap_tile", "screen": "companion_home", "target": {"id": "tile_scam_check", "label": {"en": "Check a message", "ur": "پیغام چیک کریں"}},
+         "highlight": {"x": 0.04, "y": 0.64, "w": 0.44, "h": 0.20}, "arrow": "down",
+         "hint": {"en": "Tap 'Check a message'.", "ur": "'پیغام چیک کریں' دبائیں۔"},
+         "action": {"kind": "in_app_route", "route": "scam_check"},
+         "completion": {"type": "screen_reached", "value": "scam_check"}},
+        {"id": "paste", "screen": "scam_check", "target": {"id": "paste_button", "label": {"en": "Paste", "ur": "پیسٹ کریں"}},
+         "highlight": {"x": 0.06, "y": 0.40, "w": 0.88, "h": 0.10}, "arrow": "up",
+         "hint": {"en": "Press Paste (or pick a screenshot), then press Check.", "ur": "'پیسٹ کریں' دبائیں (یا اسکرین شاٹ چنیں)، پھر 'چیک کریں' دبائیں۔"},
+         "action": {"kind": "in_app_hint"},
+         "completion": {"type": "user_confirm"}}
+      ]
+    },
+    {
+      "id": "ask_family",
+      "task": "ask_family",
+      "title": {"en": "Ask my family", "ur": "گھر والوں سے مدد"},
+      "intro_default": {"en": "Let's call your family helper.", "ur": "آئیں اپنے گھر کے مددگار کو کال کرتے ہیں۔"},
+      "slots": {},
+      "steps": [
+        {"id": "tap_tile", "screen": "companion_home", "target": {"id": "tile_ask_family", "label": {"en": "Ask my family", "ur": "گھر والوں سے مدد"}},
+         "highlight": {"x": 0.52, "y": 0.64, "w": 0.44, "h": 0.20}, "arrow": "down",
+         "hint": {"en": "Tap 'Ask my family'.", "ur": "'گھر والوں سے مدد' دبائیں۔"},
+         "action": {"kind": "open_intent", "intent": "dial", "params": ["helper"]},
+         "completion": {"type": "intent_launched"}},
+        {"id": "press_call", "screen": "dialer", "target": {"id": "dialer_call_button", "label": {"en": "Call", "ur": "کال"}},
+         "highlight": {"x": 0.38, "y": 0.82, "w": 0.24, "h": 0.10}, "arrow": "down",
+         "hint": {"en": "Press the green phone button. Your family is one tap away.", "ur": "سبز فون بٹن دبائیں۔ آپ کے گھر والے بس ایک ٹچ دور ہیں۔"},
+         "action": {"kind": "external_hint"},
+         "completion": {"type": "returned_to_app"}}
+      ]
+    }
+  ]
+}

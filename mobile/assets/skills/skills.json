@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "limits": {"max_steps": 10, "timeout_seconds": 30},
+  "skills": [
+    {
+      "id": "call_contact",
+      "packages": ["com.google.android.dialer", "com.android.dialer", "com.samsung.android.dialer",
+                   "com.android.contacts", "com.samsung.android.app.contacts", "com.android.incallui",
+                   "com.google.android.contacts"],
+      "steps": [
+        {
+          "id": "press_call",
+          "action": "click",
+          "match": {
+            "ids": ["dialpad_floating_action_button", "dialpad_voice_call_button", "call_button", "dialButton", "btn_call",
+                    "dial_button", "voice_call_button"],
+            "texts": ["Call", "کال"],
+            "descs": ["Call", "dial", "Voice call", "کال"]
+          },
+          "hint": {"en": "Press the green phone button to call.", "ur": "کال کرنے کے لیے سبز فون بٹن دبائیں۔"}
+        }
+      ]
+    },
+    {
+      "id": "whatsapp_chat",
+      "packages": ["com.whatsapp", "com.whatsapp.w4b"],
+      "steps": [
+        {
+          "id": "focus_box",
+          "action": "click",
+          "match": {"ids": ["com.whatsapp:id/entry", "com.whatsapp.w4b:id/entry"], "texts": ["Message", "پیغام"], "descs": []},
+          "hint": {"en": "Type your message in this box.", "ur": "اس خانے میں اپنا پیغام لکھیں۔"}
+        },
+        {
+          "id": "press_send_yourself",
+          "action": "guide_only",
+          "match": {"ids": ["com.whatsapp:id/send", "com.whatsapp.w4b:id/send"], "texts": [], "descs": ["Send", "بھیجیں"]},
+          "hint": {"en": "When ready, press the green arrow yourself to send.", "ur": "جب تیار ہوں تو بھیجنے کے لیے سبز تیر خود دبائیں۔"}
+        }
+      ]
+    },
+    {
+      "id": "wifi_on",
+      "packages": ["com.android.settings", "com.samsung.android.settings", "com.google.android.settings.intelligence"],
+      "steps": [
+        {
+          "id": "toggle_wifi",
+          "action": "click",
+          "only_if_unchecked": true,
+          "match": {
+            "ids": ["android:id/switch_widget", "com.android.settings:id/switch_widget", "com.android.settings:id/switch_bar",
+                    "android:id/switch_bar", "switch_text", "main_switch_bar"],
+            "texts": ["Use Wi-Fi", "Use Wi‑Fi", "Wi-Fi", "Wi‑Fi", "وائی فائی"],
+            "descs": ["Wi-Fi", "Wi‑Fi"]
+          },
+          "hint": {"en": "Tap the switch so Wi-Fi turns on.", "ur": "سوئچ دبائیں تاکہ وائی فائی آن ہو جائے۔"}
+        },
+        {
+          "id": "pick_network",
+          "action": "guide_only",
+          "match": {"ids": ["android:id/title"], "texts": [], "descs": []},
+          "hint": {"en": "Now tap your home network name.", "ur": "اب اپنے گھر کے نیٹ ورک کا نام دبائیں۔"}
+        }
+      ]
+    }
+  ]
+}

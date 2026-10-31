@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Companion</string>
+    <string name="tier2_service_label">Companion tap helper</string>
+    <string name="tier2_service_description">Companion can point to the next button in apps like the phone dialer, WhatsApp and Wi-Fi settings, and, only when you ask, tap it for you. It never works in banking, payment or password screens, never presses Send, and you can press Stop at any time. Nothing you see on screen is saved or sent anywhere.</string>
+    <string name="tier2_channel">Companion helper</string>
+    <string name="tier2_notification_title">Companion tap helper is on</string>
+    <string name="tier2_notification_text">It only helps when you ask. Turn it off any time in Accessibility settings.</string>
+    <string name="tier2_guiding">Companion is showing you where to tap</string>
+    <string name="tier2_assisting">Companion is helping</string>
+    <string name="tier2_stop">STOP</string>
+</resources>

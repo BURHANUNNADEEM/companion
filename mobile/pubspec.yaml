@@ -1,0 +1,41 @@
+name: companion
+description: Companion - a calm, guided home screen for older parents (Urdu / English).
+publish_to: "none"
+version: 0.3.0+1
+
+environment:
+  sdk: ">=3.6.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  provider: ^6.1.2
+  http: ^1.2.2
+  shared_preferences: ^2.3.2
+  uuid: ^4.5.1
+  # auth (F5)
+  firebase_core: ^3.6.0
+  firebase_auth: ^5.3.1
+  # voice (F7) - on-device Android recognizer and TTS, free
+  speech_to_text: ^7.0.0
+  flutter_tts: ^4.2.0
+  # Tier 1 navigation (F1/F10)
+  url_launcher: ^6.3.1
+  android_intent_plus: ^5.2.0
+  # scam check input (F6): screenshot OCR on device + share sheet
+  image_picker: ^1.1.2
+  google_mlkit_text_recognition: ^0.14.0
+  receive_sharing_intent: ^1.8.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/skills/skills.json
