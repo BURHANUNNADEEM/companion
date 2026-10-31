@@ -25,7 +25,7 @@ The user row is created automatically on first call (single user type, no roles)
 | 422 | `validation_error`, `invalid_phone`, `phone_required` | Bad input |
 | 503 | `database_error` | DB unreachable (Neon waking up): retry |
 
-Workflow / task ids (allowlist): `call_family`, `whatsapp_video` (practice), `scam_check`, `wifi_settings`, `open_camera`.
+Workflow / task ids (allowlist): `call_family`, `whatsapp_video` (practice), `scam_check`, `bank_practice` (practice), `wifi`, `hotspot`, `sound`, `display`, `bluetooth`, `open_camera`.
 Help levels: `none` → `nudge` → `highlight` → `full`.
 
 ---
@@ -138,7 +138,7 @@ The workflow plus `steps` (`index`, `screen_id`, `target_id`, `text_ur/en`, `why
  "launch": {"kind": "dial", "uri": "tel:+923001234567", "android_action": null, "user_must_tap": true, "practice_first": false},
  "steps": [...]}
 ```
-Launch targets come only from a fixed template list (`tel:`, `https://wa.me/`, `sms:`, `android.settings.WIFI_SETTINGS`, `android.media.action.STILL_IMAGE_CAMERA`). Phone numbers are validated (10–15 digits; `03xx…` becomes `923xx…`) and never logged. **The backend never performs device actions**: the app opens the target only after the user taps the last step.
+Launch targets come only from a fixed template list (`tel:`, `https://wa.me/`, `sms:`, `android.settings.WIFI_SETTINGS` / `WIRELESS_SETTINGS` / `SOUND_SETTINGS` / `DISPLAY_SETTINGS` / `BLUETOOTH_SETTINGS`, `android.media.action.STILL_IMAGE_CAMERA`). Phone numbers are validated (10–15 digits; `03xx…` becomes `923xx…`) and never logged. **The backend never performs device actions**: the app opens the target only after the user taps the last step.
 
 ## 8. Progress and task completion (help that fades)
 ### `POST /api/tasks/{task_id}/start` → 201

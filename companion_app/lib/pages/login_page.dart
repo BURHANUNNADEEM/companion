@@ -9,7 +9,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  static bool _gsiReady = false;
 
   final _email = TextEditingController();
   final _password = TextEditingController();

@@ -28,11 +28,23 @@ class Workflow:
     id: str
     title_ur: str
     title_en: str
-    launch_kind: str  # dial | whatsapp_chat | sms | wifi_settings | camera | none
+    launch_kind: str  # dial | whatsapp_chat | sms | *_settings | camera | none
     needs_phone: bool
     is_practice: bool
     keywords: tuple[str, ...]  # voice-intent matching (en / roman ur / ur); '!' = strong keyword
     steps: tuple[Step, ...] = field(default_factory=tuple)
+
+
+def _settings_menu_step(lesson_id: str, ur: str, en: str) -> Step:
+    return Step("settings_menu", f"item_{lesson_id}", f"{ur} پر دبائیں", f"Tap {en}",
+                "یہ چھوٹا سبق ہے، پھر ہم اصلی سیٹنگ کھولیں گے۔", "A short lesson, then we open the real settings.",
+                "فہرست میں نام ڈھونڈیں", "Find it in the list")
+
+
+def _open_settings_step() -> Step:
+    return Step("settings_lesson", "btn_open_settings", "سیٹنگ کھولیں والا بٹن دبائیں", "Tap Open settings",
+                "یہ فون کی اصلی سیٹنگ کھولے گا۔ بٹن آپ خود آن کریں گی۔", "This opens the real settings. You switch it on yourself.",
+                "نیچے نیلا بٹن", "The blue button at the bottom")
 
 
 WORKFLOWS: dict[str, Workflow] = {
@@ -84,8 +96,8 @@ WORKFLOWS: dict[str, Workflow] = {
                  "بڑا نیلا بٹن", "The big blue button"),
         ),
     ),
-    "wifi_settings": Workflow(
-        "wifi_settings", "وائی فائی کھولنا", "Turn on Wi-Fi", "wifi_settings", False, False,
+    "wifi": Workflow(
+        "wifi", "وائی فائی چلانا", "Turn on Wi-Fi", "wifi_settings", False, False,
         ("!wifi", "!wi-fi", "internet", "net", "net nahi", "!وائی فائی", "انٹرنیٹ"),
         (
             Step("home", "tile_wifi", "وائی فائی کا بٹن دبائیں", "Tap the Wi-Fi button",
@@ -104,6 +116,41 @@ WORKFLOWS: dict[str, Workflow] = {
                  "کیمرے کی تصویر ڈھونڈیں", "Look for the camera picture"),
         ),
     ),
+    "hotspot": Workflow(
+        "hotspot", "ہاٹ اسپاٹ (انٹرنیٹ شیئر کرنا)", "Share internet (hotspot)", "wireless_settings", False, False,
+        ("!hotspot", "!hot spot", "net share", "internet share", "!ہاٹ اسپاٹ", "انٹرنیٹ شیئر"),
+        (_settings_menu_step("hotspot", "ہاٹ اسپاٹ", "Hotspot"), _open_settings_step()),
+    ),
+    "sound": Workflow(
+        "sound", "آواز اونچی کرنا", "Make sound louder", "sound_settings", False, False,
+        ("!volume", "!sound", "awaz", "!ringtone", "ghanti", "!آواز", "گھنٹی"),
+        (_settings_menu_step("sound", "آواز", "Sound"), _open_settings_step()),
+    ),
+    "display": Workflow(
+        "display", "لکھائی بڑی کرنا", "Bigger text and brightness", "display_settings", False, False,
+        ("!font", "!text size", "bara likhna", "!brightness", "roshni", "!لکھائی", "روشنی"),
+        (_settings_menu_step("display", "لکھائی", "Text size"), _open_settings_step()),
+    ),
+    "bluetooth": Workflow(
+        "bluetooth", "بلوٹوتھ چلانا", "Turn on Bluetooth", "bluetooth_settings", False, False,
+        ("!bluetooth", "!headphone", "speaker", "!بلوٹوتھ", "ہیڈفون"),
+        (_settings_menu_step("bluetooth", "بلوٹوتھ", "Bluetooth"), _open_settings_step()),
+    ),
+    "bank_practice": Workflow(
+        "bank_practice", "بینک کی محفوظ مشق", "Safe banking practice", "none", False, True,
+        ("!bank", "paise bhejne", "money send", "!بینک", "پیسے بھیج"),
+        (
+            Step("home", "tile_bank", "بینک کی مشق والا بٹن دبائیں", "Tap Banking practice",
+                 "یہ صرف مشق ہے، کوئی اصلی پیسے نہیں جائیں گے۔", "Practice only, no real money moves.",
+                 "بینک کی عمارت والی تصویر", "The bank building picture"),
+            Step("bank_practice", "btn_bank_review", "نام اور رقم چیک کر کے بٹن دبائیں", "Check name and amount, then tap",
+                 "پیسے بھیجنے سے پہلے نام اور رقم دو بار پڑھیں۔", "Read the name and amount twice before sending.",
+                 "نیچے والا بٹن", "The button at the bottom"),
+            Step("bank_otp", "btn_refuse_otp", "کوڈ نہ بتائیں، فون بند کریں", "Do not share the code, hang up",
+                 "بینک کبھی فون پر کوڈ نہیں مانگتا۔", "Banks never ask for the code on the phone.",
+                 "ہرا بٹن", "The green button"),
+        ),
+    ),
 }
 
 # Fixed Android targets the app may open. No free-form URIs ever.
@@ -112,6 +159,10 @@ _LAUNCH_TEMPLATES = {
     "whatsapp_chat": "https://wa.me/{phone}",
     "sms": "sms:+{phone}",
     "wifi_settings": "android.settings.WIFI_SETTINGS",
+    "wireless_settings": "android.settings.WIRELESS_SETTINGS",
+    "sound_settings": "android.settings.SOUND_SETTINGS",
+    "display_settings": "android.settings.DISPLAY_SETTINGS",
+    "bluetooth_settings": "android.settings.BLUETOOTH_SETTINGS",
     "camera": "android.media.action.STILL_IMAGE_CAMERA",
 }
 _PHONE_RE = re.compile(r"^\d{10,15}$")

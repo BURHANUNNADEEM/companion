@@ -1,7 +1,0 @@
-.
-./config.dart
-./main.dart
-./pages
-./pages/home_page.dart
-./pages/login_page.dart
-./tree.txt

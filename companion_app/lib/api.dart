@@ -20,3 +20,11 @@ Future<http.Response> apiGet(String path) async =>
 Future<http.Response> apiPost(String path, Map<String, dynamic> body) async =>
     http.post(Uri.parse('$apiBaseUrl$path'),
         headers: await _headers(), body: jsonEncode(body));
+
+Future<http.Response> apiPut(String path, Map<String, dynamic> body) async =>
+    http.put(Uri.parse('$apiBaseUrl$path'),
+        headers: await _headers(), body: jsonEncode(body));
+
+Future<http.Response> apiDelete(String path, Map<String, dynamic> body) async =>
+    http.delete(Uri.parse('$apiBaseUrl$path'),
+        headers: await _headers(), body: jsonEncode(body));

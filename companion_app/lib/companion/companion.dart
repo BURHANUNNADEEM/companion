@@ -1,0 +1,14 @@
+export 'core/caregiver_summary.dart';
+export 'core/companion_engine.dart';
+export 'core/config.dart';
+export 'core/event_log.dart' show Consent;
+export 'core/help_ladder.dart' show SkillProgress;
+export 'core/models.dart';
+export 'core/scam_checker.dart';
+export 'core/storage.dart';
+export 'core/task_flows.dart';
+export 'flutter/companion_controller.dart';
+export 'flutter/launcher.dart';
+export 'flutter/shared_prefs_store.dart';
+export 'flutter/target_registry.dart';
+export 'flutter/tts_service.dart';

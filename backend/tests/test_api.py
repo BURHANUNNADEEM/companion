@@ -91,7 +91,7 @@ def test_event_single_and_batch_and_sanitising(client, h):
 # ---------------- workflows ----------------
 def test_workflows_allowlist(client, h):
     ids = [w["id"] for w in client.get("/api/workflows", headers=h).json()["workflows"]]
-    assert {"call_family", "whatsapp_video", "scam_check"} <= set(ids)
+    assert {"call_family", "whatsapp_video", "scam_check", "wifi", "hotspot", "sound", "display", "bluetooth", "bank_practice"} <= set(ids)
     wf = client.get("/api/workflows/call_family?contact_id=son", headers=h).json()
     assert wf["steps"][1]["target_id"] == "contact_son" and wf["starting_help_level"] == "full"
     r = client.get("/api/workflows/rm_rf_everything", headers=h)
@@ -108,7 +108,7 @@ def test_workflow_resolve(client, h):
     assert r.status_code == 422
     r = client.post("/api/workflows/call_family/resolve", json={}, headers=h)
     assert r.json()["error"]["code"] == "phone_required"
-    r = client.post("/api/workflows/wifi_settings/resolve", json={}, headers=h)
+    r = client.post("/api/workflows/wifi/resolve", json={}, headers=h)
     assert r.json()["launch"]["android_action"] == "android.settings.WIFI_SETTINGS"
 
 
@@ -275,7 +275,7 @@ def test_gemini_invalid_output_is_rejected(monkeypatch):
 # ---------------- voice ----------------
 def test_voice_intent_keywords(client, h):
     for t, want in [("Ali ko call karo", "call_family"), ("بیٹے سے ویڈیو پر بات کرنی ہے", "whatsapp_video"),
-                    ("ye message fraud hai kya", "scam_check"), ("wifi on karo", "wifi_settings")]:
+                    ("ye message fraud hai kya", "scam_check"), ("wifi on karo", "wifi"), ("hotspot chalao", "hotspot"), ("awaz kam hai, volume barhao", "sound")]:
         r = client.post("/api/voice/intent", json={"transcript": t}, headers=h).json()
         assert r["task_id"] == want, (t, r)
         assert r["requires_confirmation"] is True
