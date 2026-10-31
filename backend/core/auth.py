@@ -27,6 +27,9 @@ def require_auth(
 ) -> dict:
     if creds is None:
         raise HTTPException(401, "missing token", headers={"WWW-Authenticate": "Bearer"})
+    # Local testing only (DEV_AUTH_ENABLED=true): "Bearer dev-alice" -> uid "dev-alice"
+    if settings.dev_auth_enabled and creds.credentials.startswith("dev-"):
+        return {"uid": creds.credentials}
     _init_firebase(settings.firebase_project_id)
     try:
         return fb_auth.verify_id_token(creds.credentials)
