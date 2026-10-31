@@ -4,4 +4,4 @@ sqlalchemy[asyncio]>=2.0
 psycopg[binary]
 pydantic-settings
 python-dotenv
-clerk-backend-api
+clerk-backend-apialembic
